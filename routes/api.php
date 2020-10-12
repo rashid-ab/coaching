@@ -16,4 +16,23 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::get('f','HomeController@iindex');
+Route::group([
+
+    'middleware' => 'api',
+    'prefix' => 'auth'
+
+], function ($router) {
+
+    Route::post('login', 'AuthController@login');
+    Route::post('logout', 'AuthController@logout');
+    Route::post('refresh', 'AuthController@refresh');
+    Route::post('me', 'AuthController@me');
+
+});
+
+//  User API's
+Route::post('signup',"UserController@signup");
+// Route::post('login',"UserController@login");
+Route::post('send_code',"UserController@send_code");
+Route::post('code',"UserController@code");
+Route::post('reset_Password',"UserController@reset_Password");
