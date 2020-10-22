@@ -10,11 +10,21 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    return view('welcome');
-});
-
+Route::group(['middleware' => 'revalidate'], function () {
 Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
+Route::group(['middleware' => ['auth']], function () {
+Route::get('/', 'AdminController@index');
+Route::get('/coach', 'AdminController@coach');
+Route::get('/referral', 'AdminController@referral');
+Route::get('/transactions', 'AdminController@transactions');
+Route::get('/subscription', 'AdminController@subscription');
+Route::get('/feedback', 'AdminController@feedback');
+Route::get('/report', 'AdminController@report');
+Route::get('/privacy_policy', 'AdminController@privacy_policy');
+Route::get('/account_settings', 'AdminController@account_settings');
+Route::get('/inbox', 'AdminController@inbox');
+Route::get('/notifications', 'AdminController@notifications');
+Route::get('/create_notifications', 'AdminController@create_notifications');
+Route::get('/user_detail', 'AdminController@user_detail');
+});
+});

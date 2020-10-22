@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use App\User;
+use JWTAuth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -37,6 +38,9 @@ class UserController extends Controller
      */
     public function signup(Request $request)
     {
+        return auth('api')->factory()->getTTL();
+        $token="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL2NvYWNoXC9hcGlcL2F1dGhcL2xvZ2luIiwiaWF0IjoxNjAzMTIzNzYzLCJleHAiOjE2MDMxMjczNjMsIm5iZiI6MTYwMzEyMzc2MywianRpIjoiMEVFOW9DWTRzd0l4TVd2MyIsInN1YiI6MSwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.TW1rsMTtcEb9QO7HQWqYkbMpazNsyEBhJiy4mIxayXg";
+        // return JWTAuth::setToken($token)->toUser();
         $user=User::create([
             'name' => $request->name,
             'email' => $request->email,

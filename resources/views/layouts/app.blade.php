@@ -10,15 +10,25 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    
 
     <!-- Fonts -->
+    
+    <!-- Styles -->
+    <link href="{{ asset('public/css/app.css') }}" rel="stylesheet">
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-
-    <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('public/css/bootstrap/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/css/style.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('public/css/responsive.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('public/css/fontawesome/css/all.min.css') }}" type="text/css">
 </head>
+<style>
+    .py-4{
+        padding-top: 0px !important;
+    }
+    
+</style>
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
@@ -55,13 +65,13 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                    <a class="dropdown-item" href="{{ url('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>
                                 </div>
@@ -78,3 +88,10 @@
     </div>
 </body>
 </html>
+
+<script src="{{ asset('public/js/jquery.min.js') }}" type="text/javascript"></script>
+{{-- <script src="{{ asset('public/js/apps.js') }}" defer></script> --}}
+<script src="{{ asset('public/js/poper.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('public/js/bootstrap.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('public/js/slim_scroll.js') }}" type="text/javascript"></script>
+<script src="{{ asset('public/js/app.js') }}" type="text/javascript"></script>
