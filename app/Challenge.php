@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Challenge extends Model
 {
-   protected $fillable = ['challenge_id','challenge_name','challenge_type','description','task_title','task_description'];
+   protected $fillable = ['user_id','category_id','challenge_name','challenge_type','description','start_time','end_time','notification','status'];
 }

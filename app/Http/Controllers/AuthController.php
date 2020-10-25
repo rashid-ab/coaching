@@ -49,7 +49,6 @@ class AuthController extends Controller
      */
     public function logout()
     {
-        return 'asd';
         auth('api')->logout();
 
         return response()->json(['message' => 'Successfully logged out']);
