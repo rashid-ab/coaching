@@ -21,6 +21,7 @@ class ApiController extends Controller
 
     public function signup(Request $request)
     {
+        // return JWTAuth::setToken($token)->toUser();
        $user=User::create([
             'name' => $request->name,
             'email' => $request->email,
