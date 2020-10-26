@@ -172,7 +172,7 @@ class ApiController extends Controller
     }
        
 }
-return response()->json(['status'=>'success','data'=>'Challenge Created Successfully']);
+return response()->json(['status'=>'success','data'=>'Challenge Created']);
 
     }
 
