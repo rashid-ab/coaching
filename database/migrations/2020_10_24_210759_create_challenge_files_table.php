@@ -18,7 +18,6 @@ class CreateChallengeFilesTable extends Migration
             $table->bigInteger('challenge_id')->unsigned();
             $table->string('file');
             $table->string('status');
-            $table->foreign('challenge_id')->references('id')->on('challenges')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

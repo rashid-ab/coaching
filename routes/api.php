@@ -32,6 +32,7 @@ Route::group([
 
 //  User API's
 Route::post('signup',"ApiController@signup");
+Route::post('challenge',"ApiController@challenge");
 // Route::post('login',"UserController@login");
 Route::post('send_code',"ApiController@send_code");
 Route::post('code',"ApiController@code");

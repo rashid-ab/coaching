@@ -18,7 +18,6 @@ class CreateTaskFilesTable extends Migration
             $table->bigInteger('task_id')->unsigned();
             $table->string('file');
             $table->string('status');
-            $table->foreign('task_id')->references('id')->on('tasks')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

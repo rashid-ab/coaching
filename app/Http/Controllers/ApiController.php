@@ -21,7 +21,6 @@ class ApiController extends Controller
 
     public function signup(Request $request)
     {
-        // return JWTAuth::setToken($token)->toUser();
        $user=User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -116,41 +115,66 @@ class ApiController extends Controller
     }
 
     public function challenge(Request $request){
-        $chellenge=Challenge::create([
-                'user_id'=>$request->user_id,
-                'category_id'=>$request->category_id,
-                'challenge_name'=>$request->challenge_name,
-                'challenge_type'=>$request->challenge_type,
-                'description'=>$request->description,
-                'start_time'=>$request->start_time,
-                'end_time'=>$request->end_time,
-                'notification'=>$request->notification,
-                'status'=>'1'
+        $challenge=Challenge::create([
+                            'user_id'=>$request->user_id,
+                            'category_id'=>$request->category_id,
+                            'challenge_name'=>$request->challenge_name,
+                            'challenge_type'=>$request->challenge_type,
+                            'description'=>$request->description,
+                            'start_time'=>$request->start_time,
+                            'end_time'=>$request->end_time,
+                            'notification'=>$request->notification,
+                            'status'=>'1'
         ]);
-
-        $task=Task::create([
-                'challenge_id'=>$chellenge->id,
-                'title'=>$request->title,
-                'description'=>$request->description,
-                'status'=>'1'
-        ]);
-        if ($request->hasfile('file')) {
-			$file = $request->file('file');
+        foreach($request->challenge_file as $challenge_file){
+        if ($challenge_file['file']) {
+			$file = $challenge_file['file'];
 			$file_name = $file->getClientOriginalName();
 			$file_ext = $file->getClientOriginalExtension();
 			$lid = str_random(4);
 			$fileInfo = pathinfo($file_name);
 			$filename = $fileInfo['filename'];
 			$newname = $filename . $lid . "." . $file_ext;
-			$destinationPaths1 = app()->basePath('public/images');
-			$file->move($destinationPaths1, $newname);
-        $chellengefile=Task::create([
-            'challenge_id'=>$chellenge->id,
-            'file'=>$request->file,
+			$destinationPaths1 = app()->basePath('public/images/challenges');
+            $file->move($destinationPaths1, $newname);
+            $chellengefile=ChallengeFile::create([
+            'challenge_id'=>$challenge->id,
+            'file'=>url('/') . '/public/images/challenges/' . $newname,
             'status'=>'1'
-    ]);
+        ]);
+    }
+}
+    foreach($request->task as $tasks)
+        {
+        $task=Task::create([
+                'challenge_id'=>$challenge->id,
+                'title'=>$tasks['title'],
+                'description'=>$tasks['description'],
+                'status'=>'1'
+        ]);
         }
+        foreach($request->task_file as $task_file){
+            if ($task_file['file']) {
+                $file = $task_file['file'];
+                $file_name = $file->getClientOriginalName();
+                $file_ext = $file->getClientOriginalExtension();
+                $lid = str_random(4);
+                $fileInfo = pathinfo($file_name);
+                $filename = $fileInfo['filename'];
+                $newname = $filename . $lid . "." . $file_ext;
+                $destinationPaths1 = app()->basePath('public/images/tasks');
+                $file->move($destinationPaths1, $newname);
+                $chellengefile=TaskFile::create([
+                'task_id'=>$task->id,
+                'file'=>url('/').'/public/images/tasks/'.$newname,
+                'status'=>'1'
+                ]);
+    }
+       
+}
+return response()->json(['status'=>'success','data'=>'Challenge Created Successfully']);
 
     }
+
         
 }

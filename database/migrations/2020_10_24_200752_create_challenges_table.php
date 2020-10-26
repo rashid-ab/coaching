@@ -24,8 +24,6 @@ class CreateChallengesTable extends Migration
             $table->string('end_time');
             $table->string('notification');
             $table->string('status');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

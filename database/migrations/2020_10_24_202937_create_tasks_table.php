@@ -19,7 +19,6 @@ class CreateTasksTable extends Migration
             $table->string('title');
             $table->string('description');
             $table->string('status');
-            $table->foreign('challenge_id')->references('id')->on('challenges')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }
