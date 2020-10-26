@@ -31,8 +31,8 @@ Route::group([
 });
 
 //  User API's
-Route::post('signup',"UserController@signup");
+Route::post('signup',"ApiController@signup");
 // Route::post('login',"UserController@login");
-Route::post('send_code',"UserController@send_code");
-Route::post('code',"UserController@code");
-Route::post('reset_Password',"UserController@reset_Password");
+Route::post('send_code',"ApiController@send_code");
+Route::post('code',"ApiController@code");
+Route::post('reset_Password',"ApiController@reset_Password");
