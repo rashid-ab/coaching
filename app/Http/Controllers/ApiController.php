@@ -11,6 +11,7 @@ use JWTAuth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Validator;
 class ApiController extends Controller
 {
     public function index()
@@ -22,20 +23,36 @@ class ApiController extends Controller
     public function signup(Request $request)
     {
         // return JWTAuth::setToken($token)->toUser();
-       $user=User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'phone' => $request->phone,
-            'role' => $request->role,
-            'city' => $request->city,
-            'zip_code' => $request->zip_code,
-            'address' => $request->address,
-            'bio' => $request->bio,
-            'experties' => $request->experties,
-            'status' => '1',
+        $validator = Validator::make($request->all(), 
+        ['name' => 'required|min:3|max:20',
+        'email' => 'required|email|unique:users,email',
+        'phone' => ['required','numeric'],
+        'password' => [
+            'required',
+            'string',
+            'min:6',
+        ],
+        'cpassword' => 'required|same:password'],[
+            'name.required' => 'The name field is required.',
+            'email.unique' => 'The email has already been taken.Please try another one.'
         ]);
-        return response()->json(['status'=>'success','data'=>$user]);
+        if ($validator->fails()) {
+            $response = $validator->messages();
+            return response()->json(['status'=>'success', 'data'=> $response]);
+        }
+        else {
+            $user=User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'phone' => $request->phone,
+                'role' => $request->role,
+                'city' => $request->city,
+                'address' => $request->address,
+                'status' => '1',
+            ]);
+            return response()->json(['status'=>'success','data'=>$user]);
+        }
     }
 
     public function login(Request $request){
